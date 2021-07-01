@@ -6,33 +6,44 @@ class Signin extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			siginEmail: '',
-			siginPassword: ''
+			signinEmail: '',
+			signinPassword: ''
 		}
 	}
 
 	onEmailChange = (event) => {
-		this.setState({siginEmail: event.target.value})
+		this.setState({signinEmail: event.target.value})
 	}
 	
 	onPasswordChange = (event) => {
-		this.setState({siginPassword: event.target.value})
+		this.setState({signinPassword: event.target.value})
 	}
 
-	onSubmitSigin = () => {
-		fetch('http://localhost:3001/signin', {
+	onSubmitSignin = () => {
+		
+		fetch('http://localhost:3000/signin', {
 			method: 'post',
 			headers: {'Content-Type': 'application/json'},
 			body: JSON.stringify({
-				email: this.state.siginEmail,
-				password: this.state.siginPassword
+				email: this.state.signinEmail,
+				password: this.state.signinPassword
 			})
-		}).then(resp => resp.json()).then(data => {
-			if(data === 'signin') {
-				this.props.onRouteChange('home');
-		}
 		})
+		.then(resp => resp.json())
+		.then(data => {
+			switch(data){
+				case 'success':
+					this.props.onRouteChange('home');
+					break;
+				default:
+					console.log('error');
+			}
+				
 
+
+		})
+		
+		
 		
 	}
 
@@ -53,7 +64,7 @@ class Signin extends React.Component {
 							</div>
 						</fieldset>
 						<div className="">
-							<input className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Sign in" onClick={this.onSubmitSigin}/>
+							<input className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type='submit' value="Sign in" onClick={this.onSubmitSignin}/>
 						</div>
 						<div className="lh-copy mt3">
 							<p style={{cursor: 'pointer'}} onClick={() => this.props.onRouteChange('register')} href="#0" className="f6 link dim black db">Register</p>

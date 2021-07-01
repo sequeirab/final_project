@@ -72,13 +72,13 @@ onSubmit = () => {
   .catch(err => console.log(err));
 }
 
-onRouteChange = (route) => {
-  if(route === 'signout') {
+onRouteChange = (routes) => {
+  if(routes === 'signout') {
     this.setState({isSignin: false})
   } else {
     this.setState({isSignin: true})
   }
-  this.setState({route: route})
+  this.setState({route: routes})
 }
 
 
@@ -91,9 +91,9 @@ onRouteChange = (route) => {
           params={particlesOptions} 
           />
         <Navigation isSignin={isSignin} onRouteChange={this.onRouteChange}/>
-        { route === 'home' 
+        { route === 'home'
           ? 
-          <div>
+        <div>
           <Logo />
           <Rank />
           <ImageLinkForm onChange={this.onInputChange} onSubmit={this.onSubmit}/>
